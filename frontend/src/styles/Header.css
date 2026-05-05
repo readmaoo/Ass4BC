@@ -14,7 +14,22 @@
     color: #333333;                
     font-weight: 600;               
 }
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    gap: 10px;
+}
 
+#addr {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #52b788;
+    font-size: 0.8rem;
+    word-break: break-all;
+    text-align: right;
+    white-space: none;
+}
 #metamask {
     background-color: #0d8b50;      
     color: white;                   
