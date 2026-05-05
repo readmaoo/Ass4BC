@@ -1,7 +1,7 @@
 import "../styles/Header.css"
 import { ethers } from "ethers";
 import { useState } from "react";
-export default function Header(){
+export default function Header({onActive}){
     let signer = null;
     let provider;
     const [address, setAddress] = useState("");
@@ -14,11 +14,12 @@ export default function Header(){
             signer = await provider.getSigner();
             const userAddress = await signer.getAddress();
             setAddress(userAddress);
+            onActive();
         }
     }
     return(
     <div className="Header">
-    <h2 id="name">Simplified DAO Governance dApp frontend</h2>
+    <h2 id="name">Simplified DAO Governance dApp</h2>
     <div className="auth-container">
             <button id="metamask" onClick={ConnectMetamask}>
                 {address ? "CONNECTED" : "CONNECT METAMASK"}

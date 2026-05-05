@@ -1,0 +1,63 @@
+.proposal-item {
+    background: #fff;
+    border: 1px solid #e0e4e8;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.proposal-item h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.proposal-info p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.proposal-actions {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.vote-btn {
+    flex: 1;
+    background-color: #94999f; 
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: not-allowed;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.vote-btn1 {
+    flex: 1;
+    background-color: #0d8b50; 
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.vote-btn1:hover {
+    background-color: #055a32;
+}
+
+.proposal-results {
+    margin: 12px 0 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+}
