@@ -1,0 +1,57 @@
+.deleget {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin-top: 5%;
+    margin-left: 3%;
+}
+
+#dl {
+    margin: 0 0 16px 0;
+    font-size: 1.25rem;
+    color: #222;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.deleget p {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+#adr {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+#adr:focus {
+    outline: none;
+    border-color: #52b788;
+}
+
+#but {
+    width: 100%;
+    padding: 12px;
+    background-color: #c0c0c0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: not-allowed;
+    transition: background-color 0.2s;
+}
+
+#but:hover {
+    background-color: #b0b0b0;
+}

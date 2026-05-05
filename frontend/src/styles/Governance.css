@@ -1,0 +1,41 @@
+.gover {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    margin-top: 20px;
+    margin-left: 3%;
+}
+
+.gover h2 {
+    margin: 0 0 16px 0;
+    font-size: 1.25rem;
+    color: #222;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.gover p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: #333;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+#p1::after {
+    content: " 0";
+    font-weight: bold;
+    color: #52b788;
+}
+
+#p2::after {
+    content: " None";
+    font-weight: normal;
+    color: #888;
+    font-style: italic;
+}
