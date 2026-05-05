@@ -288,4 +288,66 @@ describe("Assignment 4 — Parts 2 and 3 DAO Governance", function () {
       "OwnableUnauthorizedAccount"
     );
   });
+    async function deployUpgradeableBox(timelock) {
+    const UpgradeableBoxV1 = await ethers.getContractFactory("UpgradeableBoxV1");
+    const boxV1Implementation = await UpgradeableBoxV1.deploy();
+    await boxV1Implementation.waitForDeployment();
+
+    const initData = boxV1Implementation.interface.encodeFunctionData("initialize", [timelock.target]);
+
+    const UpgradeableBoxProxy = await ethers.getContractFactory("UpgradeableBoxProxy");
+
+    const proxy = await UpgradeableBoxProxy.deploy(boxV1Implementation.target, initData);
+    await proxy.waitForDeployment();
+
+    const upgradeableBox = await ethers.getContractAt("UpgradeableBoxV1", proxy.target);
+
+    return { boxV1Implementation, proxy, upgradeableBox };
+  }
+
+  it("upgrades a controlled contract only through Timelock governance", async function () {
+    const fixture = await deployDaoFixture();
+    const { owner, governor, timelock } = fixture;
+
+    const { upgradeableBox } = await deployUpgradeableBox(timelock);
+
+    expect(await upgradeableBox.owner()).to.equal(timelock.target);
+    expect(await upgradeableBox.version()).to.equal("V1");
+
+    const UpgradeableBoxV2 = await ethers.getContractFactory("UpgradeableBoxV2");
+    const boxV2Implementation = await UpgradeableBoxV2.deploy();
+    await boxV2Implementation.waitForDeployment();
+
+    const calldata = upgradeableBox.interface.encodeFunctionData("upgradeTo", [boxV2Implementation.target]);
+    const description = "Upgrade controlled Box proxy from V1 to V2";
+
+    const proposal = await propose(governor, owner, upgradeableBox.target, calldata, description);
+
+    await passProposal({ ...fixture, voter: owner, proposalId: proposal.proposalId });
+
+    await queueAndExecute({
+      ...fixture,
+      target: upgradeableBox.target,
+      calldata,
+      descriptionHash: proposal.descriptionHash,
+    });
+
+    const upgradedBox = await ethers.getContractAt("UpgradeableBoxV2", upgradeableBox.target);
+
+    expect(await upgradedBox.version()).to.equal("V2");
+  });
+
+  it("blocks direct contract upgrades from non-Timelock accounts", async function () {
+    const { owner, timelock } = await deployDaoFixture();
+
+    const { upgradeableBox } = await deployUpgradeableBox(timelock);
+
+    const UpgradeableBoxV2 = await ethers.getContractFactory("UpgradeableBoxV2");
+    const boxV2Implementation = await UpgradeableBoxV2.deploy();
+    await boxV2Implementation.waitForDeployment();
+
+    await expect(
+      upgradeableBox.connect(owner).upgradeTo(boxV2Implementation.target)
+    ).to.be.revertedWith("Only owner");
+  });
 });
