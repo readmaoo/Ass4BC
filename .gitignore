@@ -1,5 +1,10 @@
 node_modules/
 cache/
 artifacts/
+out/
+broadcast/
 .env
-.DS_Store
+.DS_Storecd backend
+forge clean
+forge build
+forge test -vv

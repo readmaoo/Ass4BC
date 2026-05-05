@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import {ERC1967Utils} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Utils.sol";
+import {ERC1967Utils} from "openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol";
 
 contract UpgradeableBoxV1 {
     address private _owner;
@@ -13,9 +13,13 @@ contract UpgradeableBoxV1 {
     event ImplementationUpgraded(address indexed newImplementation);
 
     modifier onlyOwner() {
-        require(msg.sender == _owner, "Only owner");
+        _onlyOwner();
         _;
     }
+
+function _onlyOwner() internal view {
+    require(msg.sender == _owner, "Only owner");
+}
 
     function initialize(address initialOwner) external {
         require(!_initialized, "Already initialized");
